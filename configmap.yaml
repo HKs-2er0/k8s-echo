@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-conf
+  namespace: dev-nginx
+data:
+  nginx.conf: |
+    eventsworker_processes auto;
+    events { }
+    http {
+      default_type text/plain;
+
+      access_log off;
+      error_log  /dev/stderr warn;
+
+      server {
+        listern 8081;
+        sub_filter_types *;
+        sub_filter "Kubernetes" "Kubernetes & Nginx";
+      }
+    }

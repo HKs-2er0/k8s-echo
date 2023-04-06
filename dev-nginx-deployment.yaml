@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx
+  namespace: dev-nginx
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+        ports:
+        - containerPort: 8081
+        volumeMounts:
+        - name: nginx-conf
+          mountPath: /etc/nginx
+    volumes:
+    - name: nginx-conf
+      configMap:
+        name: nginx-conf
+        items:
+        - key: nginx.conf
+          path: nginx.conf
