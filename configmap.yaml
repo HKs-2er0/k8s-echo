@@ -5,7 +5,6 @@ metadata:
   namespace: dev-nginx
 data:
   nginx.conf: |
-    eventsworker_processes auto;
     events { }
     http {
       default_type text/plain;
@@ -14,7 +13,7 @@ data:
       error_log  /dev/stderr warn;
 
       server {
-        listern 8081;
+        listen 8081;
         sub_filter_types *;
         sub_filter "Kubernetes" "Kubernetes & Nginx";
       }
