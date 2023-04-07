@@ -7,14 +7,12 @@ data:
   nginx.conf: |
     events { }
     http {
-      default_type text/plain;
-
-      access_log off;
-      error_log  /dev/stderr warn;
-
       server {
         listen 8081;
-        sub_filter_types *;
-        sub_filter "Kubernetes" "Kubernetes & Nginx";
+        location / {
+          proxy_pass http://server-service.dev-server.svc.cluster.local:8080;
+          sub_filter_types *;
+          sub_filter "Kubernetes" "Kubernetes & Nginx";
+        }
       }
     }

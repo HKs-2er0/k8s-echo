@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: k8s-echo
+  name: http-echo
   namespace: dev-server
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
-      app: k8s-echo
+      service: http-echo
   template:
     metadata:
       labels:
-        app: k8s-echo
+        service: http-echo
     spec:
       containers:
-      - name: echo-server
-        image: ealen/echo-server
+      - image: ealen/echo-server
+        name: server
         args:
-        - --port=8081
+        - --port=8080
         ports:
-        - containerPort: 8081
+        - containerPort: 8080
